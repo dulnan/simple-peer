@@ -279,7 +279,7 @@ Peer.prototype.addTrack = function (track, stream) {
  * @param {MediaStreamTrack} newTrack
  * @param {MediaStream} stream
  */
-Peer.prototype.replaceTrack = async function (oldTrack, newTrack, stream) {
+Peer.prototype.replaceTrack = function (oldTrack, newTrack, stream) {
   var self = this
 
   self._debug('replaceTrack()')
@@ -292,7 +292,7 @@ Peer.prototype.replaceTrack = async function (oldTrack, newTrack, stream) {
   if (newTrack) self._senderMap.set(newTrack, submap)
 
   if (sender.replaceTrack != null) {
-    await sender.replaceTrack(newTrack)
+    sender.replaceTrack(newTrack)
   } else {
     self.destroy(makeError('replaceTrack is not supported in this browser', 'ERR_UNSUPPORTED_REPLACETRACK'))
   }
